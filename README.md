@@ -11,11 +11,11 @@ The exam includes 3 tasks to be done: [Calculator](/tasks/Calculator.md), [Pyram
 
 ### Result ###
 
-* Author name : {PUT YOUR NAME HERE}
-* Codeship : {PUT YOUR CODESHIP BAGDE HERE}
+* Author name : Dmitrii Tenishchev
+* Codeship : [![Codeship Status for temlerg/t-system_javaschool](https://app.codeship.com/projects/25e6e97d-1cf6-47d9-ac15-1df69381df05/status?branch=master)](https://app.codeship.com/projects/418379)
 
 Example of Codeship badge. Please remove the example before you send us the link. 
-[![Codeship Status for temlerg/t-system_javaschool](https://app.codeship.com/projects/25e6e97d-1cf6-47d9-ac15-1df69381df05/status?branch=master)](https://app.codeship.com/projects/418379)
+
 
 
 ### How to start?  ###
