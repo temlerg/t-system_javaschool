@@ -14,24 +14,36 @@ public class Subsequence {
      */
     @SuppressWarnings("rawtypes")
     public boolean find(List x, List y) {
-        if (x == null || y == null)
+        if (x == null || y == null) {
             throw new IllegalArgumentException();
+        }
 
-        if (x.size() > y.size())
+        if (x.size() > y.size()) {
             return false;
+        }
 
         int[] countAr = new int[y.size()];
-        for (int i = 0; i < y.size(); ++i) countAr[i] = -1;
+        for (int i = 0; i < y.size(); ++i) {
+            countAr[i] = -1;
+        }
 
-        for (int i = 0; i < x.size(); ++i)
-            for (int j = 0; j < y.size(); ++j)
-                if (y.get(j) == x.get(i)) countAr[j] = i;
+        for (int i = 0; i < x.size(); ++i) {
+            for (int j = 0; j < y.size(); ++j) {
+                if (y.get(j).equals(x.get(i))) {
+                    countAr[j] = i;
+                }
+            }
+        }
 
         int count = -1;
         for (int i = 0; i < y.size(); ++i) {
-            if (countAr[i] != -1)
-                if (countAr[i] >= count) count = countAr[i];
-                else return false;
+            if (countAr[i] != -1) {
+                if (countAr[i] >= count) {
+                    count = countAr[i];
+                } else {
+                    return false;
+                }
+            }
         }
         return count >= x.size() - 1;
     }

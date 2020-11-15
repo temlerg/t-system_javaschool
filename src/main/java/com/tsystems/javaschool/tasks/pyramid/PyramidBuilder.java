@@ -17,14 +17,24 @@ public class PyramidBuilder {
      */
     public int[][] buildPyramid(List<Integer> inputNumbers) {
 
-        if (inputNumbers == null) throw new CannotBuildPyramidException();
-        else for (Integer inputNumber : inputNumbers)
-            if (inputNumber == null)
-                throw new CannotBuildPyramidException();
+        if (inputNumbers == null) {
+            throw new CannotBuildPyramidException();
+        } else {
+            for (Integer inputNumber : inputNumbers) {
+                if (inputNumber == null) {
+                    throw new CannotBuildPyramidException();
+                }
+            }
+        }
 
         boolean flag;
         int[][] matrix;
         long size = inputNumbers.size();
+
+
+        if (inputNumbers.isEmpty()) {
+            return new int[][]{{}};
+        }
 
         //is this sequence suitable
         long count = 0;
@@ -47,7 +57,9 @@ public class PyramidBuilder {
             List<Integer> t = inputNumbers.stream().sorted().collect(Collectors.toList());
 
             matrix = new int[rows][cols];
-            for (int[] row : matrix) Arrays.fill(row, 0);
+            for (int[] row : matrix) {
+                Arrays.fill(row, 0);
+            }
 
             long center = (cols / 2);
             count = 1;
@@ -55,14 +67,16 @@ public class PyramidBuilder {
 
             for (long i = 0, offset = 0; i < rows; i++, offset++, count++) {
                 long start = center - offset;
-                for (long j = 0; j < count * 2; j += 2, arrIdx++)
+                for (long j = 0; j < count * 2; j += 2, arrIdx++) {
                     matrix[(int) i][(int) (start + j)] = t.get((int) arrIdx);
+                }
             }
 
             for (int[] a : matrix) {
-                for (long b : a)
+                for (long b : a) {
                     System.out.print(b + " ");
-                System.out.println();
+                    System.out.println();
+                }
             }
         } else {
             throw new CannotBuildPyramidException();

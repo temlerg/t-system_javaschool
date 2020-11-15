@@ -176,7 +176,6 @@ public class PyramidBuilderTest {
         // assert
         comparePyramids(expected, pyramid);
     }
-
     @Test
     public void buildPyramidZero() {
         // given

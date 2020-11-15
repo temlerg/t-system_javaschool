@@ -17,17 +17,18 @@ public class Calculator {
         try {
             String s = Objects.requireNonNull(CalculatorEx.calculateExpression(statement)).toString();
 
-            for (int i = 0; i < statement.length() - 1; ++i)
+            for (int i = 0; i < statement.length() - 1; ++i) {
                 if (statement.charAt(i) == statement.charAt(i + 1) && (statement.charAt(i) == '-' ||
-                        statement.charAt(i) == '+' || statement.charAt(i) == '/' || statement.charAt(i) == '*'))
+                        statement.charAt(i) == '+' || statement.charAt(i) == '/' || statement.charAt(i) == '*')) {
                     return null;
-
-            if (s.charAt(s.length() - 1) == '0' && s.charAt(s.length() - 2) == '.')
+                }
+            }
+            if (s.charAt(s.length() - 1) == '0' && s.charAt(s.length() - 2) == '.') {
                 return s.substring(0, s.length() - 2);
-
-            if (s.equals("Infinity"))
+            }
+            if (s.equals("Infinity")) {
                 return null;
-
+            }
             return s;
         } catch (Exception e) {
             return null;
@@ -50,10 +51,12 @@ class CalculatorEx {
 
     public static String sortingStation(String expression, Map<String, Integer> operations, String leftBracket,
                                         String rightBracket) {
-        if (expression == null || expression.length() == 0)
+        if (expression == null || expression.length() == 0) {
             return null;
-        if (operations == null || operations.isEmpty())
+        }
+        if (operations == null || operations.isEmpty()) {
             return null;
+        }
 
         List<String> out = new ArrayList<String>();
 
@@ -101,27 +104,28 @@ class CalculatorEx {
                     stack.pop();
                 } else {
                     while (!stack.empty() && !stack.peek().equals(leftBracket) &&
-                            (operations.get(nextOperation) >= operations.get(stack.peek())))
+                            (operations.get(nextOperation) >= operations.get(stack.peek()))) {
                         out.add(stack.pop());
-
+                    }
                     stack.push(nextOperation);
                 }
                 index = nextOperationIndex + nextOperation.length();
             }
         }
 
-        if (index != expression.length())
+        if (index != expression.length()) {
             out.add(expression.substring(index));
-
-        while (!stack.empty())
+        }
+        while (!stack.empty()) {
             out.add(stack.pop());
-
+        }
         StringBuilder result = new StringBuilder();
-        if (!out.isEmpty())
+        if (!out.isEmpty()) {
             result.append(out.remove(0));
-        while (!out.isEmpty())
+        }
+        while (!out.isEmpty()) {
             result.append(" ").append(out.remove(0));
-
+        }
         return result.toString();
     }
 
@@ -133,8 +137,10 @@ class CalculatorEx {
 
     public static Double calculateExpression(String expression) {
         String rpn = sortingStation(expression, MAIN_MATH_OPERATIONS);
+
         StringTokenizer tokenizer = new StringTokenizer(rpn, " ");
         Stack<Double> stack = new Stack<Double>();
+
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
 
@@ -160,8 +166,9 @@ class CalculatorEx {
                 }
             }
         }
-        if (stack.size() != 1)
+        if (stack.size() != 1) {
             return null;
+        }
         return stack.pop();
     }
 }
