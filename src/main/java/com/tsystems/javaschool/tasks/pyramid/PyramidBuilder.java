@@ -16,11 +16,9 @@ public class PyramidBuilder {
      */
     public int[][] buildPyramid(List<Integer> inputNumbers) {
         // TODO : Implement your solution here
-        if(inputNumbers == null) throw new CannotBuildPyramidException();
-        else {
-            for (int i = 0; i < inputNumbers.size(); ++i)
-                if(inputNumbers.get(i) == null) throw new CannotBuildPyramidException();
-        }
+        if (inputNumbers == null) throw new CannotBuildPyramidException();
+        else for (int i = 0; i < inputNumbers.size(); ++i)
+            if (inputNumbers.get(i) == null) throw new CannotBuildPyramidException();
         boolean flag;
         int[][] matrix;
         long size = inputNumbers.size();
@@ -36,9 +34,8 @@ public class PyramidBuilder {
         rows--;
         cols -= 2;
         //is it possible to build
-        if (size == count) {
-            flag = true;
-        } else flag = false;
+        if (size == count) flag = true;
+        else flag = false;
 
         if (flag) {
             List<Integer> t = inputNumbers.stream().sorted().collect(Collectors.toList());
@@ -46,9 +43,7 @@ public class PyramidBuilder {
             // System.out.println("Число строк " + rows);
 
             matrix = new int[rows][cols];
-            for (int[] row : matrix) {
-                Arrays.fill(row, 0);
-            }
+            for (int[] row : matrix) Arrays.fill(row, 0);
 
             long center = (cols / 2);
             count = 1;
@@ -56,9 +51,8 @@ public class PyramidBuilder {
 
             for (long i = 0, offset = 0; i < rows; i++, offset++, count++) {
                 long start = center - offset;
-                for (long j = 0; j < count * 2; j += 2, arrIdx++) {
+                for (long j = 0; j < count * 2; j += 2, arrIdx++)
                     matrix[(int) i][(int) (start + j)] = t.get((int) arrIdx);
-                }
             }
 
             for (int[] a : matrix) {
@@ -66,8 +60,7 @@ public class PyramidBuilder {
                     System.out.print(b + " ");
                 System.out.println();
             }
-        }
-        else {
+        } else {
             throw new CannotBuildPyramidException();
         }
         return matrix;
