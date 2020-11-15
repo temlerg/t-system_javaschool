@@ -1,7 +1,6 @@
 package com.tsystems.javaschool.tasks.calculator;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+
 import java.util.*;
 
 public class Calculator {
