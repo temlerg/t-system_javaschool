@@ -173,6 +173,17 @@ public class SubsequenceTest {
 
         //assert: exception
     }
+    @Test
+    public void find4ЗPro() {
+        //given
+        List x = Stream.of("B", "A", "D", "C").collect(toList());
+        List y = Stream.of("B", "D", "A", "D", "C").collect(toList());
 
+        //run
+        boolean result = subsequence.find(x, y);
+
+        //assert
+        Assert.assertTrue(result);
+    }
 
 }

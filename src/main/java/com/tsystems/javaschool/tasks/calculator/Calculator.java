@@ -14,25 +14,25 @@ public class Calculator {
      * @return string value containing result of evaluation or null if statement is invalid
      */
     public String evaluate(String statement) {
-        //TODO: Implement the logic here
         try {
-            String s = CalculatorEx.calculateExpression(statement).toString();
-            for (int i = 0; i < statement.length() - 1; ++i) {
+            String s = Objects.requireNonNull(CalculatorEx.calculateExpression(statement)).toString();
+
+            for (int i = 0; i < statement.length() - 1; ++i)
                 if (statement.charAt(i) == statement.charAt(i + 1) && (statement.charAt(i) == '-' ||
                         statement.charAt(i) == '+' || statement.charAt(i) == '/' || statement.charAt(i) == '*'))
                     return null;
-            }
-            if(s.charAt(s.length()-1) == '0' && s.charAt(s.length()-2) == '.') {
-                return s.substring(0, s.length()-2);
-            }
-            if (s.equals("Infinity")) return null;
+
+            if (s.charAt(s.length() - 1) == '0' && s.charAt(s.length() - 2) == '.')
+                return s.substring(0, s.length() - 2);
+
+            if (s.equals("Infinity"))
+                return null;
+
             return s;
         } catch (Exception e) {
             return null;
         }
-
     }
-
 }
 
 class CalculatorEx {
@@ -41,11 +41,10 @@ class CalculatorEx {
 
     static {
         MAIN_MATH_OPERATIONS = new HashMap<String, Integer>();
-        MAIN_MATH_OPERATIONS.put("%", 1);
-        MAIN_MATH_OPERATIONS.put("*", 2);
-        MAIN_MATH_OPERATIONS.put("/", 2);
-        MAIN_MATH_OPERATIONS.put("+", 3);
-        MAIN_MATH_OPERATIONS.put("-", 3);
+        MAIN_MATH_OPERATIONS.put("*", 1);
+        MAIN_MATH_OPERATIONS.put("/", 1);
+        MAIN_MATH_OPERATIONS.put("+", 2);
+        MAIN_MATH_OPERATIONS.put("-", 2);
     }
 
 
@@ -87,7 +86,6 @@ class CalculatorEx {
             if (nextOperationIndex == expression.length()) {
                 findNext = false;
             } else {
-
                 if (index != nextOperationIndex) {
                     out.add(expression.substring(index, nextOperationIndex));
                 }
@@ -97,30 +95,28 @@ class CalculatorEx {
                 } else if (nextOperation.equals(rightBracket)) {
                     while (!stack.peek().equals(leftBracket)) {
                         out.add(stack.pop());
-                        if (stack.empty()) {
+                        if (stack.empty())
                             return null;
-                        }
                     }
                     stack.pop();
                 } else {
                     while (!stack.empty() && !stack.peek().equals(leftBracket) &&
-                            (operations.get(nextOperation) >= operations.get(stack.peek()))) {
+                            (operations.get(nextOperation) >= operations.get(stack.peek())))
                         out.add(stack.pop());
-                    }
+
                     stack.push(nextOperation);
                 }
                 index = nextOperationIndex + nextOperation.length();
             }
         }
 
-        if (index != expression.length()) {
+        if (index != expression.length())
             out.add(expression.substring(index));
-        }
 
-        while (!stack.empty()) {
+        while (!stack.empty())
             out.add(stack.pop());
-        }
-        StringBuffer result = new StringBuffer();
+
+        StringBuilder result = new StringBuilder();
         if (!out.isEmpty())
             result.append(out.remove(0));
         while (!out.isEmpty())
@@ -142,20 +138,25 @@ class CalculatorEx {
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
 
-            if (!MAIN_MATH_OPERATIONS.keySet().contains(token)) {
+            if (!MAIN_MATH_OPERATIONS.containsKey(token)) {
                 stack.push(new Double(token));
             } else {
                 double operand2 = stack.pop();
                 double operand1 = stack.empty() ? 0 : stack.pop();
 
-                if (token.equals("*")) {
-                    stack.push(operand1 * operand2);
-                } else if (token.equals("/")) {
-                    stack.push(operand1 / operand2);
-                } else if (token.equals("+")) {
-                    stack.push(operand1 + operand2);
-                } else if (token.equals("-")) {
-                    stack.push(operand1 - operand2);
+                switch (token) {
+                    case "*":
+                        stack.push(operand1 * operand2);
+                        break;
+                    case "/":
+                        stack.push(operand1 / operand2);
+                        break;
+                    case "+":
+                        stack.push(operand1 + operand2);
+                        break;
+                    case "-":
+                        stack.push(operand1 - operand2);
+                        break;
                 }
             }
         }

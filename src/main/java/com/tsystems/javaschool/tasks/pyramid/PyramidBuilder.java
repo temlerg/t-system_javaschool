@@ -1,6 +1,7 @@
 package com.tsystems.javaschool.tasks.pyramid;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -15,32 +16,35 @@ public class PyramidBuilder {
      * @throws {@link CannotBuildPyramidException} if the pyramid cannot be build with given input
      */
     public int[][] buildPyramid(List<Integer> inputNumbers) {
-        // TODO : Implement your solution here
+
         if (inputNumbers == null) throw new CannotBuildPyramidException();
-        else for (int i = 0; i < inputNumbers.size(); ++i)
-            if (inputNumbers.get(i) == null) throw new CannotBuildPyramidException();
+        else for (Integer inputNumber : inputNumbers)
+            if (inputNumber == null)
+                throw new CannotBuildPyramidException();
+
         boolean flag;
         int[][] matrix;
         long size = inputNumbers.size();
+
         //is this sequence suitable
         long count = 0;
         int rows = 1;
         int cols = 1;
+
         while (count < size) {
             count += rows;
             rows++;
             cols += 2;
         }
+
         rows--;
         cols -= 2;
+
         //is it possible to build
-        if (size == count) flag = true;
-        else flag = false;
+        flag = size == count;
 
         if (flag) {
             List<Integer> t = inputNumbers.stream().sorted().collect(Collectors.toList());
-            //System.out.println("Число столбцов " + cols);
-            // System.out.println("Число строк " + rows);
 
             matrix = new int[rows][cols];
             for (int[] row : matrix) Arrays.fill(row, 0);
