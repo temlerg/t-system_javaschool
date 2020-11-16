@@ -22,23 +22,16 @@ public class Subsequence {
             return false;
         }
 
-        int[] countAr = new int[x.size()];
-
-        for (int i = 0; i < x.size(); ++i) {
-            for (int j = 0; j < y.size(); ++j) {
-                if (y.get(j).equals(x.get(i))) {
-                    countAr[i] = j;
-                }
+        int index = 0;
+        for (Object i : y) {
+            if (index == x.size()){
+                return true;
+            }
+            if (i.equals(x.get(index))) {
+                index++;
             }
         }
 
-        boolean flag = true;
-        for (int i = 0; i < x.size() - 1; ++i) {
-            if (countAr[i] > countAr[i + 1]){
-                flag = false;
-            }
-        }
-
-        return flag;
+        return index == x.size();
     }
 }
