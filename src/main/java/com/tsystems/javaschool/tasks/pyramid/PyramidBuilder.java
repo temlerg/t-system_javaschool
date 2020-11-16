@@ -54,7 +54,7 @@ public class PyramidBuilder {
         flag = size == count;
 
         if (flag) {
-            List<Integer> t = inputNumbers.stream().sorted().collect(Collectors.toList());
+            List<Integer> sortedList = inputNumbers.stream().sorted().collect(Collectors.toList());
 
             matrix = new int[rows][cols];
             for (int[] row : matrix) {
@@ -68,7 +68,7 @@ public class PyramidBuilder {
             for (long i = 0, offset = 0; i < rows; i++, offset++, count++) {
                 long start = center - offset;
                 for (long j = 0; j < count * 2; j += 2, arrIdx++) {
-                    matrix[(int) i][(int) (start + j)] = t.get((int) arrIdx);
+                    matrix[(int) i][(int) (start + j)] = sortedList.get((int) arrIdx);
                 }
             }
 

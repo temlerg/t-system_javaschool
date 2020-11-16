@@ -22,29 +22,23 @@ public class Subsequence {
             return false;
         }
 
-        int[] countAr = new int[y.size()];
-        for (int i = 0; i < y.size(); ++i) {
-            countAr[i] = -1;
-        }
+        int[] countAr = new int[x.size()];
 
         for (int i = 0; i < x.size(); ++i) {
             for (int j = 0; j < y.size(); ++j) {
                 if (y.get(j).equals(x.get(i))) {
-                    countAr[j] = i;
+                    countAr[i] = j;
                 }
             }
         }
 
-        int count = -1;
-        for (int i = 0; i < y.size(); ++i) {
-            if (countAr[i] != -1) {
-                if (countAr[i] >= count) {
-                    count = countAr[i];
-                } else {
-                    return false;
-                }
+        boolean flag = true;
+        for (int i = 0; i < x.size() - 1; ++i) {
+            if (countAr[i] > countAr[i + 1]){
+                flag = false;
             }
         }
-        return count >= x.size() - 1;
+
+        return flag;
     }
 }
